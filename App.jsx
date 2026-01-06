@@ -1,28 +1,32 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 import ProductList from "./components/ProductList";
-import CartItem from "./components/CartItem";
-import AboutUs from "./components/AboutUs";
 
+/*
+  App component controls whether the landing page
+  or the product list is displayed.
+*/
 function App() {
+  // State required by the assignment
+  const [showProductList, setShowProductList] = useState(false);
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="landing">
-              <h1>Paradise Nursery</h1>
-              <Link to="/plants">
-                <button>Get Started</button>
-              </Link>
-            </div>
-          }
-        />
-        <Route path="/plants" element={<ProductList />} />
-        <Route path="/cart" element={<CartItem />} />
-        <Route path="/about" element={<AboutUs />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      {showProductList ? (
+        // Show Product List after clicking Get Started
+        <ProductList />
+      ) : (
+        // Landing Page
+        <div className="landing">
+          <h1>Paradise Nursery</h1>
+          <p>Your one-stop shop for beautiful houseplants</p>
+
+          {/* Get Started button with required onClick logic */}
+          <button onClick={() => setShowProductList(true)}>
+            Get Started
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 
